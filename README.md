@@ -73,7 +73,7 @@ Nun solltet ihr in der Lage sein das Script auch ohne "sh" und Pfadangabe aufzur
 enpal battery Energy.Battery.Charge.Level
 ````
 
-Mit diesem Befehl sollte euch nun der aktuelle ladestand eurer Batterie in % angezeigt werden
+Mit diesem Befehl sollte euch nun der aktuelle Ladestand eurer Batterie in % angezeigt werden
 
 Nun könnt ihr das [evcc-Plugin "script"](https://docs.evcc.io/docs/reference/plugins#shell-script-lesenschreiben) nutzen um eure Werte weiterzuverarbeiten. Eine entsprechende Beispielkonfiguration der evcc.yaml findet ihr hier im Projektordner.
 
