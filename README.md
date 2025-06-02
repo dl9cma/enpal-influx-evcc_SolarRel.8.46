@@ -5,7 +5,7 @@ an einer FoxESS-Anlage.
 KEINE EXTRA HARDWARE ODER ZUSATZMESSGERÄTE ERFORDERLICH! 
 Alle notwendigen Werte können mit diesem Skript direkt aus der InfluxDB ausgelesen werden. 
 
-Dieses Workaround basiert auf auf die tolle Vorarbeit von weldan84 mit unter dem Namen "enpal-influx-evcc". Vielen Dank hierfür :-)
+Dieses Workaround basiert auf auf die tolle Vorarbeit von weldan84 unter dem Namen "enpal-influx-evcc". Vielen Dank hierfür :-)
 
 Auf Anfrage beim technischen Support bei Enpal erhält man ein lesenden Zugang zur InfluxDB. Diese Datenbank befindet sich auf einem lokalen Server in der Enpal-Box. Laut E-Mail des technischen Beraters nutzt auch Enpal diese Datenbank für die hauseigene Enpal-App um Informationen aus der Anlage weiterzuverarbeiten. Ich bin jedoch der Meinung, dass nicht alle Daten in der InfluxDB zu finden sind, denn bis dato habe ich es z. B. noch nicht geschafft den Ladezustand des Speichers zu errechnen. Vielleicht bin ich aber auch einfach noch nicht tief genug in dem Thema drinn. Für Lösungsvorschläge diesbezüglich bin ich deshalb immer dankbar.
 
