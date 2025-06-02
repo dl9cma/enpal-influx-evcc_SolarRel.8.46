@@ -1,6 +1,8 @@
 ## Einbindung einer gemieteten EnPal PV-Anlage mittels InfluxDB in evcc
 Workaround für die evcc-Integration einer gemieteten PV-Anlage "FoxESS und Enpal-Box mit Solar Rel.8.46.4" von Enpal.
 
+Diese Anpassung basiert auf enpal-influx-evcc von weldan84. Vielen Dank für die tolle Vorarbeit und Inspiration :-)
+
 Auf Anfrage beim technischen Support bei Enpal erhält man ein lesenden Zugang zur InfluxDB. Diese Datenbank befindet sich auf einem lokalen Server in der Enpal-Box. Laut E-Mail des technischen Beraters nutzt auch Enpal diese Datenbank für die hauseigene Enpal-App um Informationen aus der Anlage weiterzuverarbeiten. Ich bin jedoch der Meinung, dass nicht alle Daten in der InfluxDB zu finden sind, denn bis dato habe ich es z. B. noch nicht geschafft den Ladezustand des Speichers zu errechnen. Vielleicht bin ich aber auch einfach noch nicht tief genug in dem Thema drinn. Für Lösungsvorschläge diesbezüglich bin ich deshalb immer dankbar.
 
 Wichtig vorab zu wissen ist, dass meine Lösung für eine **InfluxDB in der Version 2.2.0** entwickelt wurde. Meines Wissens ist diese Version zumindest nicht mit den Vorgängern kompatibel. Laut den Informationen des technischen Mitarbeiters werden unter anderem an der Struktur der Datenbanken in diesem Jahr auch nochmal Änderungen vorgenommen, die dazu führen, dass Scripte evtl. angepasst werden müssen.
@@ -8,7 +10,7 @@ Wichtig vorab zu wissen ist, dass meine Lösung für eine **InfluxDB in der Vers
 Was ihr also machen müsst, bevor ihr eure gemietete PV-Anlage in **evcc** einbinden könnt, ist eine freundliche E-Mail an den Enpal-Support zu schreiben und um lesenden Zugang für die InfluxDB zu bitten. In der Regel sollte eurer Bitte dann innerhalb von 1 bis 2 Werktagen Folge geleistet werden, meiner Erfahrung nach dauert es nicht länger bis man hier eine Antwort erhält.
 
 In der Antwort-Mail sollte euch dann der lokale Host der InfluxDB sowie euer Benutzername und das Passwort mitgeteilt werden.
-1. Ruft nun die Weboberfläche der InfluxDB auf, indem ihr die **Host-Adresse zzgl. Port** (z.B. http://192.168.0.180:8086) im Browser eingebt. Meldet euch hier mit den entsprechenden Zugangsdaten an.
+1. Ruft nun die Weboberfläche der InfluxDB auf, indem ihr die **Host-Adresse zzgl. Port** (z.B. http://192.168.0.111:8086) im Browser eingebt. Meldet euch hier mit den entsprechenden Zugangsdaten an.
 2. Als erstes besorgt ihr euch die **Organization Id**. Klickt dazu in der linken Navigationsleiste unter dem Influx-Logo auf euer Profilbild. Es öffnet sich ein DropDown-Menü. Klickt dort nun auf "About".
 3. Nun sollten auf der rechten Seite der Webseite sogenannte "Common Ids" angezeigt werden, notiert euch hiervon die "Organization Id".
 4. Als nächstes benötigt ihr den **Token** zur Authentifizierung. Klickt dazu in der linken Navigationsleiste auf das Icon unter eurem Profilbild mit dem Subtitel "Data". Auf der darauffolgenden Seite solltet ihr im oberen Drittel mehrere Tabs sehen und ganz rechts einen mit der Aufschrift "Tokens". 
