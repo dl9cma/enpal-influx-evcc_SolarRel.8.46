@@ -1,11 +1,9 @@
-## Einbindung einer gemieteten PV-Anlage von Enpal mittels InfluxDB in evcc
-Workaround für die evcc-Integration einer gemieteten PV-Anlage "Huawei SUN2000 with SDongle &amp; Power Sensor" von Enpal.
+## Einbindung einer gemieteten EnPal PV-Anlage mittels InfluxDB in evcc
+Workaround für die evcc-Integration einer gemieteten PV-Anlage "FoxESS und Enpal-Box mit Solar Rel.8.46.4" von Enpal.
 
-Am 20. März 2023 hatte ich bei **evcc-io/evcc** auf GitHub eine [Diskussion](https://github.com/evcc-io/evcc/discussions/6965) bezüglich der Einbindung einer gemieteten PV-Anlage inkl. Speicher von Enpal gestellt. Allerdings stellte sich heraus, dass wohl niemand so recht etwas mit der Frage anzufangen wusste. Dazu muss man wissen, dass man bei einer gemieteten PV-Anlage von Enpal keinen Zugriff auf die Modbus-Schnittstelle erhält, man kann das System also nicht so einfach mittels [template](https://docs.evcc.io/docs/devices/meters#sun2000-with-sdongle--power-sensor) in die **evcc.yaml** einbinden.   
+Auf Anfrage beim technischen Support bei Enpal erhält man ein lesenden Zugang zur InfluxDB. Diese Datenbank befindet sich auf einem lokalen Server in der Enpal-Box. Laut E-Mail des technischen Beraters nutzt auch Enpal diese Datenbank für die hauseigene Enpal-App um Informationen aus der Anlage weiterzuverarbeiten. Ich bin jedoch der Meinung, dass nicht alle Daten in der InfluxDB zu finden sind, denn bis dato habe ich es z. B. noch nicht geschafft den Ladezustand des Speichers zu errechnen. Vielleicht bin ich aber auch einfach noch nicht tief genug in dem Thema drinn. Für Lösungsvorschläge diesbezüglich bin ich deshalb immer dankbar.
 
-Was man auf Anfrage vom technischen Support bei Enpal aber bekommt, ist ein lesender Zugang zur InfluxDB. Diese Datenbank befindet sich auf einem lokalen Server in der Enpal-Box. Laut E-Mail des technischen Beraters nutzt auch Enpal diese Datenbank für die hauseigene Enpal-App um Informationen aus der Anlage weiterzuverarbeiten. Ich bin jedoch der Meinung, dass nicht alle Daten in der InfluxDB zu finden sind, denn bis dato habe ich es z. B. noch nicht geschafft den Ladezustand des Speichers zu errechnen. Vielleicht bin ich aber auch einfach noch nicht tief genug in dem Thema drinn. Für Lösungsvorschläge diesbezüglich bin ich deshalb immer dankbar.
-
-Wichtig vorab zu wissen ist, dass meine Lösung für eine **InfluxDB in der Version 2.0.0** entwickelt wurde. Meines Wissens ist diese Version zumindest nicht mit den Vorgängern kompatibel. Laut den Informationen des technischen Mitarbeiters werden unter anderem an der Struktur der Datenbanken in diesem Jahr auch nochmal Änderungen vorgenommen, die dazu führen, dass Scripte evtl. angepasst werden müssen. Ich werde mich jedoch bemühen die Lösung hier stets auf den aktuellen Stand zu halten. Zudem läuft das Ganze bei mir auf einem kleinen **Server mit Ubuntu 20.04**.
+Wichtig vorab zu wissen ist, dass meine Lösung für eine **InfluxDB in der Version 2.2.0** entwickelt wurde. Meines Wissens ist diese Version zumindest nicht mit den Vorgängern kompatibel. Laut den Informationen des technischen Mitarbeiters werden unter anderem an der Struktur der Datenbanken in diesem Jahr auch nochmal Änderungen vorgenommen, die dazu führen, dass Scripte evtl. angepasst werden müssen.
 
 Was ihr also machen müsst, bevor ihr eure gemietete PV-Anlage in **evcc** einbinden könnt, ist eine freundliche E-Mail an den Enpal-Support zu schreiben und um lesenden Zugang für die InfluxDB zu bitten. In der Regel sollte eurer Bitte dann innerhalb von 1 bis 2 Werktagen Folge geleistet werden, meiner Erfahrung nach dauert es nicht länger bis man hier eine Antwort erhält.
 
@@ -16,14 +14,14 @@ In der Antwort-Mail sollte euch dann der lokale Host der InfluxDB sowie euer Ben
 4. Als nächstes benötigt ihr den **Token** zur Authentifizierung. Klickt dazu in der linken Navigationsleiste auf das Icon unter eurem Profilbild mit dem Subtitel "Data". Auf der darauffolgenden Seite solltet ihr im oberen Drittel mehrere Tabs sehen und ganz rechts einen mit der Aufschrift "Tokens". 
 5. Mit einem Klick auf den Tab gelangt ihr nun zur Übersicht eurer Tokens. Für gewöhnlich findet ihr hier lediglich einen Token, den ihr wiederum anklickt um im Anschluss den Schlüssel zu notieren.
 6. Ich bin mir aktuell nicht sicher ob die Buckets der InfluxDB nicht eigens für mich erstellt wurden oder ob der Name immer einheitlich ist. Zur Sicherheit würde ich nun nochmal auf den Tab "Buckets" klicken, der sich links vom Tab "Tokens" befindet und mir einen Überblick der angelegten Buckets verschaffen.
-7. Bei mir trägt der Bucket die Bezeichnung "my-new-bucket". Wenn ihr euch aber nicht sicher seid, dann klickt einfach auf den entsprechenen Bucket-Titel und prüft ob folgende Elemente angezeigt werden: "Gesamtleistung, LeistungDc, aggregated, consumtionEnergy, deviceStatus, fromGridEnergy, gridFrequency, intoGridEnergy, inverterTemperature, phaseCurrentAc, phasePowerAc, phaseVoltageAc, productionCurrentDc und productionVoltageDc"
-8. Werden diese Elemente angezeigt, dann notiert euch den entsprechenden **Bucket-Namen**.
+7. Bei mir trägt der Bucket die Bezeichnung "solar". Wenn ihr euch aber nicht sicher seid, dann klickt einfach auf den entsprechenen Bucket-Titel und prüft ob folgende Messurements angezeigt werden: "battery, system, inverter, powerSensor etc.""
+8. Werden diese Messurements angezeigt, notiert euch den entsprechenden **Bucket-Namen**.
 
 Um die PV-Anlage nun mittels evcc einzubinden geht wiefolgt vor:
 
 Ladet euch das Script herunter
 ````shell
-wget https://raw.githubusercontent.com/weldan84/enpal-influx-evcc/main/enpal.sh
+wget https://raw.githubusercontent.com/dl9cma/enpal-influx-evcc_SolarRel.8.46/main/enpal.sh
 ````
 
 Öffnet das Script und setzt eure Zugansdaten ein
@@ -64,10 +62,10 @@ sudo chmod +x /usr/bin/enpal
 
 Nun solltet ihr in der Lage sein das Script auch ohne "sh" und Pfadangabe aufzurufen
 ````shell
-enpal grid
+enpal evcc-gridpower
 ````
 
-Mit diesem Befehl sollte euch nun der aktuelle Netzbezug bzw. Einspeisung (mit einem negativen Wert) angezeigt werden
+Mit diesem Befehl sollte euch nun der aktuelle Netzbezug bzw. Einspeisung angezeigt werden
 
 Nun könnt ihr das [evcc-Plugin "script"](https://docs.evcc.io/docs/reference/plugins#shell-script-lesenschreiben) nutzen um eure Werte für grid, pv und battery weiterzuverarbeiten. Eine entsprechende Beispielkonfiguration der [evcc.yaml](https://github.com/weldan84/enpal-influx-evcc/blob/main/evcc.yaml) findet ihr ebenfalls [hier](https://github.com/weldan84/enpal-influx-evcc/blob/main/evcc.yaml) im Projektordner.
 
