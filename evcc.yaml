@@ -1,55 +1,73 @@
-# Für weitere Konfigurationsmöglichkeiten siehe offizielle Referenz unter https://docs.evcc.io/docs/reference/configuration/
-site:
-  - title: Zuhause
-    meters:
-      grid: grid_enpal #grid_powerfox optional
-      pv:
-        - pv
-      battery:
-        - battery
-    residualPower: 100
-    bufferSoc: 60
-    prioritySoc: 40
-interval: 30s
-network:
-  schema: http
-  host: evcc.local
-  port: 7070
-levels:
-  site: debug
-  meters: debug
-  lp-1: debug
 meters:
   - name: grid_enpal
     type: custom
     power:
       source: script
-      cmd: enpal grid_enpal
-      timeout: 10s
-  - name: grid_powerfox #optional
-    type: custom
-    power:
-      source: script
-      cmd: enpal grid_powerfox
-      timeout: 10s
-  - name: pv
-    type: custom
-    power:
-      source: script
-      cmd: enpal pv
+      cmd: enpal evcc-gridpower
       timeout: 10s
     energy:
       source: script
-      cmd: enpal energy
+      cmd: enpal system Energy.External.Total.In.Day
       timeout: 10s
-  - name: battery
+    currents:
+      - source: script
+        cmd: enpal powerSensor Current.Phase.A
+        timeout: 10s
+      - source: script
+        cmd: enpal powerSensor Current.Phase.B
+        timeout: 10s
+      - source: script
+        cmd: enpal powerSensor Current.Phase.C
+        timeout: 10s
+
+  - name: pv_enpal
     type: custom
     power:
       source: script
-      cmd: enpal battery
+      cmd: enpal inverter Power.DC.Total
+      timeout: 10s
+    energy:
+      source: script
+      cmd: enpal inverter Energy.Production.Total.Day
+      timeout: 10s
+    currents:
+      - source: script
+        cmd: enpal inverter Current.String.1
+        timeout: 10s
+      - source: script
+        cmd: enpal inverter Current.String.2
+        timeout: 10s
+      - source: script
+        cmd: enpal inverter Current.String.3
+        timeout: 10s
+
+  - name: battery_enpal
+    type: custom
+    power:
+      source: script
+      cmd: enpal evcc-battery
       timeout: 10s
     soc:
       source: script
-      cmd: enpal soc
+      cmd: enpal battery Energy.Battery.Charge.Level
       timeout: 10s
     capacity: 10
+
+  - name: home_consumption
+    type: custom
+    power:
+      source: script
+      cmd: enpal inverter Power.House.Total
+      timeout: 10s
+    energy:
+       source: script
+       cmd: enpal system Energy.Consumption.Total.Day
+       timeout: 10s
+site:
+  title: Mein Zuhause
+  meters:
+    grid: grid_enpal
+    pv: pv_enpal
+    battery: battery_enpal
+    aux: home_consumption
+    #ext: 
