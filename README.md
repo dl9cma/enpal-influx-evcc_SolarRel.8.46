@@ -45,13 +45,16 @@ Speichert die Änderungen mit der Tastenkombination "Strg+O" ab und schliesst di
 
 Ihr könnt das Script nun mit folgendem Befehl testen
 ````shell
-sh enpal.sh pv
+sh enpal.sh evcc-gridpower
 ````
-Als Ergebnis sollte euch die aktuelle DC-Erzeugungsleistung angezeigt werden, im Fehlerfall scheut euch bitte nicht hier unter [Issues](https://github.com/weldan84/enpal-influx-evcc/issues) einen neuen Vorgang aufzumachen.
+Als Ergebnis sollte euch die aktuelle Netzleistung angezeigt werden.
 
-Natürlich könnt ihr auch noch alle anderen Abfragen testen bevor ihr mit der Einbindung startet. Eine Liste aller möglichen Argumente erhaltet ihr mit dem Befehl
-````shell
-sh enpal.sh help
+Natürlich könnt ihr auch noch alle anderen Abfragen testen bevor ihr mit der Einbindung startet. Eine Liste aller möglichen Parameter (fields) könnt ihr in eurer InfluxDB einsehen.
+
+mit dem Befehl "enpal.sh 'messurement' 'field'" könnt ihr jedes beliebiges Feld aus der InfluxDB auslesen.
+
+Beispiel "enpal.sh inverter Power.DC.Total" zeigt den Wert des Feldes Power.DC.Total aus dem messurement inverter an. In diesem Fall wird die aktuelle Erzeugungsleistung aller Strings ausgegeben.
+
 ````
 
 Um das Script nun global bekannt zu machen, verschieben wir es in das bin-Verzeichnis und machen es ausführbar 
@@ -62,11 +65,11 @@ sudo chmod +x /usr/bin/enpal
 
 Nun solltet ihr in der Lage sein das Script auch ohne "sh" und Pfadangabe aufzurufen
 ````shell
-enpal evcc-gridpower
+enpal battery Energy.Battery.Charge.Level
 ````
 
-Mit diesem Befehl sollte euch nun der aktuelle Netzbezug bzw. Einspeisung angezeigt werden
+Mit diesem Befehl sollte euch nun der aktuelle ladestand eurer Batterie in % angezeigt werden
 
-Nun könnt ihr das [evcc-Plugin "script"](https://docs.evcc.io/docs/reference/plugins#shell-script-lesenschreiben) nutzen um eure Werte für grid, pv und battery weiterzuverarbeiten. Eine entsprechende Beispielkonfiguration der [evcc.yaml](https://github.com/weldan84/enpal-influx-evcc/blob/main/evcc.yaml) findet ihr ebenfalls [hier](https://github.com/weldan84/enpal-influx-evcc/blob/main/evcc.yaml) im Projektordner.
+Nun könnt ihr das [evcc-Plugin "script"](https://docs.evcc.io/docs/reference/plugins#shell-script-lesenschreiben) nutzen um eure Werte weiterzuverarbeiten. Eine entsprechende Beispielkonfiguration der evcc.yaml findet ihr hier im Projektordner.
 
 Zu Schluss möchte ich anmerken, dass ich mich noch nicht so lange mit dem Projekt evcc beschäftige. Es kann somit durchaus sein, dass hier oder da noch ein paar Denkfehler auftauchen. In diesem Fall freue ich mich über euren Rat. Im Gegenzug freue ich mich natürlich auch über positives Feedback, konstruktive Kritik und Verbesserungsvorschläge :)
