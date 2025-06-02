@@ -1,8 +1,9 @@
 ## Einbindung einer gemieteten EnPal PV-Anlage mittels InfluxDB in evcc
 Workaround für die evcc-Integration einer gemieteten Enpal PV-Anlage mit Enpal-Box. Zuletzt gestestet mit der IOT-Firmware "Solar Rel.8.46.4"
+an einer FoxESS-Anlage.
 
 KEINE EXTRA HARDWARE ODER ZUSATZMESSGERÄTE ERFORDERLICH! 
-Alle notwendigen Werte können über dieses Skript direkt aus der InfluxDB ausgelesen werden.
+Alle notwendigen Werte können mit diesem Skript direkt aus der InfluxDB ausgelesen werden. 
 
 Dieses Workaround basiert auf auf die tolle Vorarbeit von weldan84 mit unter dem Namen "enpal-influx-evcc". Vielen Dank hierfür :-)
 
