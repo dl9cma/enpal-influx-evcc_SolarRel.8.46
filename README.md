@@ -1,11 +1,13 @@
 ## Einbindung einer gemieteten EnPal PV-Anlage mittels InfluxDB in evcc
-Workaround für die evcc-Integration einer gemieteten PV-Anlage "FoxESS und Enpal-Box mit Solar Rel.8.46.4" von Enpal.
+Workaround für die evcc-Integration einer gemieteten Enpal PV-Anlage mit Enpal-Box. Zuletzt gestestet mit der IOT-Firmware "Solar Rel.8.46.4"
 
-Diese Anpassung basiert auf enpal-influx-evcc von weldan84. Vielen Dank für die tolle Vorarbeit und Inspiration :-)
+KEINE EXTRA HARDWARE ODER ZUSATZMESSGERÄTE ERFORDERLICH! Alle notwendigen Werte können über dieses Skript direkt aus der InfluxDB ausgelesen werden.
+
+Dieses Workaround basiert auf auf die tolle Vorarbeit von weldan84 mit unter dem Namen "enpal-influx-evcc". Vielen Dank hierfür :-)
 
 Auf Anfrage beim technischen Support bei Enpal erhält man ein lesenden Zugang zur InfluxDB. Diese Datenbank befindet sich auf einem lokalen Server in der Enpal-Box. Laut E-Mail des technischen Beraters nutzt auch Enpal diese Datenbank für die hauseigene Enpal-App um Informationen aus der Anlage weiterzuverarbeiten. Ich bin jedoch der Meinung, dass nicht alle Daten in der InfluxDB zu finden sind, denn bis dato habe ich es z. B. noch nicht geschafft den Ladezustand des Speichers zu errechnen. Vielleicht bin ich aber auch einfach noch nicht tief genug in dem Thema drinn. Für Lösungsvorschläge diesbezüglich bin ich deshalb immer dankbar.
 
-Wichtig vorab zu wissen ist, dass meine Lösung für eine **InfluxDB in der Version 2.2.0** entwickelt wurde. Meines Wissens ist diese Version zumindest nicht mit den Vorgängern kompatibel. Laut den Informationen des technischen Mitarbeiters werden unter anderem an der Struktur der Datenbanken in diesem Jahr auch nochmal Änderungen vorgenommen, die dazu führen, dass Scripte evtl. angepasst werden müssen.
+Wichtig vorab zu wissen ist, dass diese Lösung für eine **InfluxDB in der Version 2.2.0** entwickelt wurde. Es handelt sich hierbei um eine Version welche nicht mit den Vorgängern kompatibel sein dürfte. 
 
 Was ihr also machen müsst, bevor ihr eure gemietete PV-Anlage in **evcc** einbinden könnt, ist eine freundliche E-Mail an den Enpal-Support zu schreiben und um lesenden Zugang für die InfluxDB zu bitten. In der Regel sollte eurer Bitte dann innerhalb von 1 bis 2 Werktagen Folge geleistet werden, meiner Erfahrung nach dauert es nicht länger bis man hier eine Antwort erhält.
 
